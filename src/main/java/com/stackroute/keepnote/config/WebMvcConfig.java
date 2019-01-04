@@ -1,5 +1,9 @@
 package com.stackroute.keepnote.config;
 
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /*This class will contain bean for viewresolver
@@ -11,7 +15,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @EnableWebMvc - Adding this annotation to an @Configuration class imports the Spring MVC 
  * 				   configuration from WebMvcConfigurationSupport 
  * */
-
+@Configuration
+@ComponentScan(basePackages = "com.stackroute.keepnote")
+@EnableWebMvc
 public class WebMvcConfig implements WebMvcConfigurer {
 
 	/*
@@ -20,4 +26,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	 * of mapping logical view names to actual views, such as a JSP or a HTML page.
 	 */
 
+	@Override
+	public void configureViewResolvers(ViewResolverRegistry registry) {
+		registry.jsp("/WEB-INF/views/", ".jsp");
+	}
+	
 }
